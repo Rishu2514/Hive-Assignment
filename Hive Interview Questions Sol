@@ -1,12 +1,38 @@
 Q-1- What is the definition of Hive? What is the present version of Hive?
-A-1-
+A-1-Hive is a data warehousing and SQL-like query language that facilitates querying and managing large datasets residing in distributed
+storage systems, such as Hadoop Distributed File System (HDFS), Amazon S3, or Microsoft Azure Data Lake Storage.Hive translates SQL-like
+queries into MapReduce, Apache Spark, or Tez jobs, which are then executed on a cluster of machines in a distributed and parallelized manner.
+Hive also provides data summarization, query optimization, partitioning, and indexing capabilities to improve query performance.
+The current version of hive 16 November 2022: release 4.0.0-alpha-2 available.
 
 Q-2- Is Hive suitable to be used for OLTP systems? Why?
-A-2-
+A-2-Hive is not typically used for Online Transaction Processing (OLTP) systems, as it is primarily designed for querying and analyzing
+large volumes of data in a batch-oriented manner.OLTP systems require high transactional throughput and low-latency processing for supporting
+real-time, operational workloads such as recording, updating, and retrieving individual transactions. In contrast, Hive is optimized for performing
+complex, long-running analytical queries that scan and aggregate large datasets.Furthermore, Hive uses a schema-on-read approach, which means that
+the structure of the data is not defined until it is read during query execution. This makes it flexible for ad-hoc analysis but not suitable for
+applications that require strict schema enforcement, data consistency, and ACID transactions.Therefore, Hive is better suited for Online Analytical
+Processing (OLAP) workloads that involve running complex, data-intensive queries on large datasets, rather than OLTP workloads that require 
+high-speed, low-latency transaction processing.
 
 Q-3-How is HIVE different from RDBMS? Does hive support ACID
 transactions. If not then give the proper reason.
-A-3-
+A-3-Hive and traditional Relational Database Management Systems (RDBMS) differ in several ways:
+Data Structure: RDBMS typically use a fixed schema that defines the structure of the data, whereas Hive uses a schema-on-read approach that allows
+for flexibility in data structure.
+Data Volume: RDBMS are best suited for managing smaller, highly structured data sets, whereas Hive is designed to handle large-scale, unstructured
+or semi-structured data.
+Data Processing: RDBMS excel at transaction processing and online transaction processing (OLTP), while Hive is optimized for batch processing and
+analytics.
+Regarding ACID transactions, Hive does not natively support them. ACID (Atomicity, Consistency, Isolation, and Durability) transactions are 
+essential for maintaining data consistency and integrity in transactional systems, but they come with a performance cost. As Hive is designed for
+batch processing and analytical workloads, it prioritizes query performance over transaction processing.However, Hive does support limited
+transactions, such as insert, delete, and update operations, through its transactional tables feature, which uses a combination of locking, 
+logging, and snapshot isolation to ensure data consistency. However, this feature is not intended for high-concurrency or high-transaction-rate
+workloads, and it may not provide the same level of consistency guarantees as ACID transactions in RDBMS.In summary, while Hive and RDBMS share
+some similarities, they are designed for different use cases, and their capabilities and limitations reflect their intended purposes. Hive is 
+optimized for processing and analyzing large-scale, unstructured or semi-structured data, whereas RDBMS are designed for managing smaller, highly
+structured data sets and supporting transaction processing.
 
 Q-4-Explain the hive architecture and the different components of a Hive
 architecture?
