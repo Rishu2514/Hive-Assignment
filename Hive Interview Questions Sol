@@ -1,0 +1,287 @@
+Q-1- What is the definition of Hive? What is the present version of Hive?
+A-1-
+
+Q-2- Is Hive suitable to be used for OLTP systems? Why?
+A-2-
+
+Q-3-How is HIVE different from RDBMS? Does hive support ACID
+transactions. If not then give the proper reason.
+A-3-
+
+Q-4-Explain the hive architecture and the different components of a Hive
+architecture?
+A-4-
+
+Q-5-Mention what Hive query processor does? And Mention what are the
+components of a Hive query processor?
+A-5-
+
+Q-6-What are the three different modes in which we can operate Hive?
+A-6-
+
+Q-7-Features and Limitations of Hive.
+A-7-
+
+Q-8-How to create a Database in HIVE?
+A-8-
+
+Q-9-How to create a table in HIVE?
+A-9-
+
+Q-10-What do you mean by describe and describe extended and describe
+formatted with respect to database and table
+A-10-
+
+Q-11-How to skip header rows from a table in Hive?
+A-11-
+
+Q-12-What is a hive operator? What are the different types of hive operators?
+A-12-
+
+Q-13-Explain about the Hive Built-In Functions
+A-13-
+
+Q-14-Write hive DDL and DML commands.
+A-14-
+
+Q-15-Explain about SORT BY, ORDER BY, DISTRIBUTE BY and
+CLUSTER BY in Hive.
+A-15-
+
+Q-16-Difference between "Internal Table" and "External Table" and Mention
+when to choose “Internal Table” and “External Table” in Hive?
+A-16-
+
+Q-17-Where does the data of a Hive table get stored?
+A-17-
+
+Q-18-Is it possible to change the default location of a managed table?
+A-18-
+
+Q-19-What is a metastore in Hive? What is the default database provided by
+Apache Hive for metastore?
+A-19-
+
+Q-20-Why does Hive not store metadata information in HDFS?
+A-20-
+
+Q-21-What is a partition in Hive? And Why do we perform partitioning in
+Hive?
+A-21-
+
+Q-22-What is the difference between dynamic partitioning and static
+partitioning?
+A-22-
+
+Q-23-How do you check if a particular partition exists?
+A-23-
+
+Q-24-How can you stop a partition form being queried?
+A-24-
+
+Q-25-Why do we need buckets? How Hive distributes the rows into buckets?
+A-25-
+
+Q-26-In Hive, how can you enable buckets?
+A-26-
+
+Q-27-How does bucketing help in the faster execution of queries?
+A-27-
+
+Q-28-How to optimise Hive Performance? Explain in very detail.
+A-28-
+
+Q-29-What is the use of Hcatalog?
+A-29-
+
+Q-30- Explain about the different types of join in Hive.
+A-30-
+
+Q-31-Is it possible to create a Cartesian join between 2 tables, using Hive?
+A-31-
+
+Q-32-Explain the SMB Join in Hive?
+A-32-
+
+Q-33-What is the difference between order by and sort by which one we should
+use?
+A-33-
+
+Q-34-What is the usefulness of the DISTRIBUTED BY clause in Hive?
+A-34-
+
+Q-35-How does data transfer happen from HDFS to Hive?
+A-35-
+
+Q-36-Wherever (Different Directory) I run the hive query, it creates a new
+metastore_db, please explain the reason for it?
+A-36-
+
+Q-37-What will happen in case you have not issued the command: ‘SET
+hive.enforce.bucketing=true;’ before bucketing a table in Hive?
+A-37-
+
+Q-38-Can a table be renamed in Hive?
+A-38-
+
+Q-39-Write a query to insert a new column(new_col INT) into a hive table at a
+position before an existing column (x_col)
+A-39-
+
+Q-40-What is serde operation in HIVE?
+A-40-
+
+Q-41-Explain how Hive Deserializes and serialises the data?
+A-41
+
+Q-42-Write the name of the built-in serde in hive.
+A-42-
+
+Q-43-What is the need of custom Serde?
+A-43-
+
+Q-44-Can you write the name of a complex data type(collection data types) in
+Hive?
+A-44-
+
+Q-45-Can hive queries be executed from script files? How?
+A-45-
+
+Q-46-What are the default record and field delimiter used for hive text files?
+A-46-
+
+Q-47-How do you list all databases in Hive whose name starts with s?
+A-47-
+
+Q-48-.What is the difference between LIKE and RLIKE operators in Hive?
+A-48-
+
+Q-49-How to change the column data type in Hive?
+A-49-
+
+Q-50-How will you convert the string ’51.2’ to a float value in the particular
+column?
+A-50-
+
+Q-51-What will be the result when you cast ‘abc’ (string) as INT?
+A-51-
+
+Q-52-What does the following query do?
+a. INSERT OVERWRITE TABLE employees
+b. PARTITION (country, state)
+c. SELECT ..., se.cnty, se.st
+d. FROM staged_employees se;
+A-52-
+
+Q-53-Write a query where you can overwrite data in a new table from the
+existing table.
+A-53-
+
+Q-54-What is the maximum size of a string data type supported by Hive?
+Explain how Hive supports binary formats.
+A-54-
+
+Q-55-What File Formats and Applications Does Hive Support?
+A-55-
+
+Q-56-How do ORC format tables help Hive to enhance its performance?
+A-56-
+
+Q-57-How can Hive avoid mapreduce while processing the query?
+A-57-
+
+Q-58-What is view and indexing in hive?
+A-58-
+
+Q-59-Can the name of a view be the same as the name of a hive table?
+A-59-
+
+Q-60-What types of costs are associated in creating indexes on hive tables?
+A-60-
+
+Q-61-Give the command to see the indexes on a table.
+A-61-
+
+Q-62-Explain the process to access subdirectories recursively in Hive queries.
+A-62-
+
+Q-63-If you run a select * query in Hive, why doesn't it run MapReduce?
+A-63-
+
+Q-64-What are the uses of Hive Explode?
+A-64-
+
+Q-65- What is the available mechanism for connecting applications when we
+run Hive as a server?
+A-65-
+
+Q-66-Can the default location of a managed table be changed in Hive?
+A-66-
+
+Q-67-What is the Hive ObjectInspector function?
+A-67-
+
+Q-68-What is UDF in Hive?
+A-68-
+
+Q-69-Write a query to extract data from hdfs to hive.
+A-69-
+
+Q-70-What is TextInputFormat and SequenceFileInputFormat in hive.
+A-70-
+
+Q-71-How can you prevent a large job from running for a long time in a hive?
+A-71-
+
+Q-72-When do we use explode in Hive?
+A-72-
+
+Q-73-Can Hive process any type of data formats? Why? Explain in very detail
+A-73-
+
+Q-74-Whenever we run a Hive query, a new metastore_db is created. Why?
+A-74-
+
+Q-75-Can we change the data type of a column in a hive table? Write a
+complete query.
+A-75-
+
+Q-76-While loading data into a hive table using the LOAD DATA clause, how
+do you specify it is a hdfs file and not a local file ?
+A-76-
+
+Q-77-What is the precedence order in Hive configuration?
+A-77-
+
+Q-78-Which interface is used for accessing the Hive metastore?
+A-78-
+
+Q-79-Is it possible to compress json in the Hive external table ?
+A-79-
+
+Q-80-What is the difference between local and remote metastores?
+A-80-
+
+Q-81-What is the purpose of archiving tables in Hive?
+A-81-
+
+Q-82-What is DBPROPERTY in Hive?
+A-82-
+
+Q-83-Differentiate between local mode and MapReduce mode in Hive.
+A-83-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
