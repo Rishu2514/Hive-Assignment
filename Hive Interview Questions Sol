@@ -529,7 +529,9 @@ by a string field.
 or strings.
 
 Q-45-Can hive queries be executed from script files? How?
-A-45-
+A-45-Yes, Hive queries can be executed from script files. You can write your Hive queries in a script file and then execute the file using the 
+Hive CLI (Command Line Interface) or Hive Beeline.
+
 
 Q-46-What are the default record and field delimiter used for hive text files?
 A-46-
