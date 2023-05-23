@@ -453,7 +453,7 @@ A-38-Yes, a table can be renamed in Hive using the ALTER TABLE statement.
 ALTER TABLE current_table_name RENAME TO new_table_name;
 
 Q-39-Write a query to insert a new column(new_col INT) into a hive table at a position before an existing column (x_col)
-A-39-**************************************************************************************
+A-39-ALTER TABLE your_table_name CHANGE new_col new_col INT FIRST;
 
 Q-40-What is serde operation in HIVE?
 A-40-In Hive, the term "SerDe" stands for "Serialization/Deserialization." It refers to the process of converting data between a structured format
@@ -534,65 +534,186 @@ Hive CLI (Command Line Interface) or Hive Beeline.
 
 
 Q-46-What are the default record and field delimiter used for hive text files?
-A-46-
+A-46-In Hive, the default record delimiter and field delimiter used for text files are as follows:
+1.Record Delimiter: The default record delimiter in Hive is the newline character (\n). Each new line represents separate record in the text file.
+2.Field Delimiter: The default field delimiter in Hive is the tab character (\t). It is used to separate individual fields within a record in the
+text file.
+However, it's important to note that these default delimiters can be changed by specifying different delimiters during table creation or while 
+loading data into the table. Hive provides flexibility in defining custom delimiters based on the requirements of the data being processed.
 
 Q-47-How do you list all databases in Hive whose name starts with s?
-A-47-
+A-47-SHOW DATABASES LIKE 's*';
 
-Q-48-.What is the difference between LIKE and RLIKE operators in Hive?
-A-48-
+Q-48-What is the difference between LIKE and RLIKE operators in Hive?
+A-48-*LIKE Operator:The LIKE operator performs simple pattern matching using wildcard characters.It supports two wildcard characters:
+% - Matches any sequence of characters (including zero characters),_ - Matches any single character.
+The LIKE operator is case-sensitive by default, but it can be made case-insensitive by using the RLIKE operator with a regular expression and the
+appropriate flags.
+EX-SELECT * FROM table_name WHERE column_name LIKE 'abc%';
+*RLIKE Operator:The RLIKE operator performs pattern matching using regular expressions (regex).
+It allows for more complex pattern matching and supports the use of regular expression syntax.
+The regular expression used with RLIKE can include a wide range of pattern matching constructs, such as character classes, quantifiers, anchors, 
+and more.
+The RLIKE operator is case-sensitive by default, but you can make it case-insensitive by using appropriate flags in the regular expression.
+EX-SELECT * FROM table_name WHERE column_name RLIKE '^abc.*';
 
 Q-49-How to change the column data type in Hive?
-A-49-
+A-49-ALTER TABLE my_table CHANGE my_column my_column INT;
 
 Q-50-How will you convert the string ’51.2’ to a float value in the particular column?
-A-50-
+A-50-ALTER TABLE your_table_name CHANGE your_column_name your_column_name FLOAT;
 
 Q-51-What will be the result when you cast ‘abc’ (string) as INT?
-A-51-
+A-51-When casting a string to an INT in Hive, the string must represent a valid integer value for the conversion to succeed. If the string 
+contains non-numeric characters or is not in a valid numeric format, the casting operation will fail and raise an error.
 
 Q-52-What does the following query do?
 a. INSERT OVERWRITE TABLE employees
 b. PARTITION (country, state)
 c. SELECT ..., se.cnty, se.st
 d. FROM staged_employees se;
-A-52-
+A-52-a.)INSERT OVERWRITE TABLE employees-it will erase the data of existing table and then insert the new data in the table.
+b.)PARTITION (country, state)-first it will create partition across countries then each partition of country it will create partition across states
+c.)SELECT ..., se.cnty, se.st-it will select the column se.cnty,se.st.
+d.)FROM staged_employees se;-it specifies the table or subquery staged_employees and assigns it an alias se.
 
 Q-53-Write a query where you can overwrite data in a new table from the existing table.
-A-53-
+A-53-insert overwrite table buck_users select * from users;
 
 Q-54-What is the maximum size of a string data type supported by Hive? Explain how Hive supports binary formats.
-A-54-
+A-54-In Hive, the maximum size of a string data type is limited by the maximum value that can be represented by the underlying file system used by
+Hive. By default, Hive uses the Hadoop Distributed File System (HDFS), which has a maximum file size of several terabytes. Therefore, the maximum
+size of a string data type in Hive can be several terabytes.
+Hive supports binary formats by allowing users to define columns with binary data types, such as BINARY, VARBINARY, and BLOB. These binary data 
+types are designed to store arbitrary binary data, including files, images, serialized objects, and other binary representations.
 
 Q-55-What File Formats and Applications Does Hive Support?
-A-55-
+A-55-File Formats:
+1.Text File (TEXTFILE): Plain text files with each line representing a record.
+2.Sequence File (SEQUENCEFILE): Binary file format optimized for storing key-value pairs.
+3.ORC (Optimized Row Columnar): A columnar file format with advanced compression and performance optimizations.
+4.Parquet: A columnar storage format that offers efficient compression and high query performance.
+5.Avro: A compact and efficient data serialization framework.
+6.RCFile: A row columnar file format for efficient query performance.
+7.JSON: JavaScript Object Notation format for semi-structured data.
+8.CSV: Comma-Separated Values format commonly used for tabular data.
+9.XML: Extensible Markup Language format for structured data.
+Applications:Hive integrates with Apache Hadoop ecosystem tools and applications such as:
+Apache Spark: A fast and general-purpose cluster computing framework.
+Apache Tez: An execution framework optimized for interactive and batch processing.
+Apache HBase: A distributed NoSQL database for random read/write access.
+Apache Kafka: A distributed streaming platform for real-time data processing.
+Apache Drill: A distributed SQL query engine.
+Apache Flink: A stream processing and batch processing framework.
+Apache Impala: A massively parallel processing SQL query engine.
 
 Q-56-How do ORC format tables help Hive to enhance its performance?
-A-56-
+A-56-1.Columnar Storage: ORC stores data in a columnar format, where data for each column is stored together. This storage layout allows for 
+efficient compression and column-level operations, as only the relevant columns are read from disk during query execution. It reduces I/O and 
+improves query performance, especially for selective column scans and aggregation operations.
+2.Compression: ORC uses advanced compression techniques, including dictionary encoding, run-length encoding, and lightweight compression 
+algorithms like Snappy and Zlib. The columnar storage and compression significantly reduce the amount of data that needs to be read from disk, 
+resulting in faster data access and reduced storage requirements.
+3.Predicate Pushdown: ORC supports predicate pushdown, which means that the filtering conditions specified in a query are pushed down to the 
+storage layer. This allows the storage layer to skip reading irrelevant data blocks, improving query performance by minimizing the amount of data 
+processed during query execution.
+4.Indexing: ORC provides built-in indexing mechanisms like Bloom filters and min/max indexes. These indexes enable faster data skipping during 
+query execution, as they allow the query engine to quickly identify data blocks that don't contain relevant data based on the filtering conditions.
+This reduces disk I/O and improves query performance.
 
 Q-57-How can Hive avoid mapreduce while processing the query?
-A-57-
+A-57-Hive can avoid MapReduce while processing queries through various mechanisms:
+*Tez Execution Engine: Hive can leverage the Apache Tez execution engine as an alternative to MapReduce. Tez provides a more efficient and
+interactive data processing framework that executes queries as directed acyclic graphs (DAGs). It enables data to flow directly between Hive
+operators, reducing the need for intermediate disk I/O and improving query performance.
+*LLAP (Live Long and Process): LLAP is an in-memory caching and execution engine introduced in Hive. It allows for low-latency query processing by 
+keeping data in memory across multiple queries. LLAP reduces the overhead of starting a new MapReduce job for each query by maintaining long-lived
+daemons, resulting in faster query response times.
+*Vectorized Query Execution: Hive supports vectorized query execution, where data processing is performed in batches instead of individual rows. 
+Vectorized execution eliminates the need for row-by-row processing and can significantly improve query performance. It leverages CPU vector 
+instructions to process multiple data elements simultaneously, resulting in faster data processing.
+*Predicate Pushdown and Pruning: Hive can push down predicates (filter conditions) to storage layers, such as ORC or Parquet. This allows the
+storage layer to skip reading unnecessary data blocks, reducing disk I/O and improving query performance. Predicate pruning avoids unnecessary 
+processing and data transfer between storage and compute layers.
+*Indexing: Hive supports various indexing mechanisms, such as Bloom filters and min/max indexes. These indexes provide selective data skipping 
+capabilities, allowing Hive to avoid reading unnecessary data during query execution. By leveraging indexes, Hive can quickly identify relevant
+data blocks, reducing disk I/O and improving query performance.
+*Caching: Hive allows for result caching, where the results of frequently executed queries can be stored in memory or disk. Subsequent executions 
+of the same query can retrieve the results from the cache, avoiding the need for re-computation. Caching can significantly improve query response 
+times for repetitive or commonly accessed queries.
 
 Q-58-What is view and indexing in hive?
-A-58-
+A-58-In Hive, a view is a virtual table that provides a logical representation of the data stored in one or more underlying tables. A view does 
+not contain any physical data itself; instead, it references the data from the underlying tables. Views are defined using a query, and the result 
+of that query is treated as a table. Views can simplify complex queries, provide data security by restricting access to certain columns or rows, 
+and offer a consistent interface to users.
+Hive supports several indexing mechanisms, including:
+Bitmap Indexes: These indexes use bitmap vectors to map values to rows in the table. Bitmap indexes are suitable for low cardinality columns.
+Compact Indexes: Compact indexes store a sorted list of column values and their corresponding row IDs. They are efficient for high cardinality 
+columns.
+Bitmap and Compact Indexes Combined: Hive supports the combination of bitmap and compact indexes, offering efficient indexing for tables with 
+columns of varying cardinality.
 
 Q-59-Can the name of a view be the same as the name of a hive table?
-A-59-
+A-59-No, in Hive, the name of a view cannot be the same as the name of a table. Each view and table must have a unique name within the Hive 
+database or schema.If you attempt to create a view with the same name as an existing table, or vice versa, Hive will generate an error indicating
+the name conflict.
 
 Q-60-What types of costs are associated in creating indexes on hive tables?
-A-60-
+A-60-Creating indexes on Hive tables comes with certain costs that should be considered. Here are some of the costs associated with creating
+indexes:
+*Storage Overhead: Indexes require additional storage space to store the index data structures. The size of the index can vary depending on the 
+indexed columns, the indexing mechanism used, and the cardinality of the indexed values. The storage overhead increases with the number of indexed
+columns and the size of the indexed table.
+*Maintenance Overhead: Whenever data is inserted, updated, or deleted in the indexed table, the index needs to be updated accordingly to reflect 
+the changes. This maintenance overhead can impact the performance of data modification operations, as additional operations are required to update
+the index.
+*Increased Write Latency: Writing data to an indexed table can be slower compared to a non-indexed table, as the index needs to be updated along
+with the actual data write. The write latency increases as the number of indexes on the table grows.
+*Increased Query Planning Time: When executing queries on an indexed table, Hive needs to consider the available indexes and their statistics 
+during the query planning phase. This additional consideration may slightly increase the query planning time.
+*Index Selection Overhead: Hive's query optimizer needs to evaluate the available indexes and determine the most efficient index to use for a given
+query. This index selection process introduces additional overhead during query optimization.
 
 Q-61-Give the command to see the indexes on a table.
-A-61-
+A-61-show indexes on department_data;
 
 Q-62-Explain the process to access subdirectories recursively in Hive queries.
-A-62-
+A-62-SET hive.mapred.supports.subdirectories=true;
+SELECT ...
+FROM (SELECT TRANSFORM(array_of_directories) USING 'command' AS (output_columns) FROM dummy_table) t
+SELECT ...
+FROM (SELECT TRANSFORM(array_of_directories) USING 'find' AS (output_columns) FROM dummy_table) t
+SELECT ...
+FROM (SELECT TRANSFORM(array_of_directories) USING 'find' AS (output_columns) FROM dummy_table) t
+LATERAL VIEW explode(output_columns) subTable AS subDirectory;
+SELECT *
+FROM (SELECT TRANSFORM(array_of_directories) USING 'find' AS (output_columns) FROM dummy_table) t
+LATERAL VIEW explode(output_columns) subTable AS subDirectory
+WHERE subDirectory LIKE '%.txt';
+
 
 Q-63-If you run a select * query in Hive, why doesn't it run MapReduce?
-A-63-
+A-63-When you run a SELECT * query in Hive, it doesn't necessarily trigger a MapReduce job if the table is stored in a suitable format and the 
+necessary conditions are met. Hive utilizes a technique called "map-only query optimization" to avoid the need for a full MapReduce job in certain
+scenarios.
+Map-only query optimization allows Hive to skip the reduce phase and directly read data from the underlying storage format, such as ORC or Parquet.
 
 Q-64-What are the uses of Hive Explode?
-A-64-
+A-64-The explode() function in Hive is used to transform an array or map column into multiple rows, unnesting the elements of the array or map. 
+It generates a new row for each element in the array or key-value pair in the map. Here are some common uses of the explode() function in Hive:
+*Flattening Arrays: If a column in a Hive table contains an array, explode() can be used to flatten the array and create multiple rows, each 
+representing an element of the array. This is useful when you want to perform operations or analysis on individual elements of the array.
+*Unpacking Maps: Similarly, if a column in a Hive table contains a map, explode() can be used to unpack the map and generate rows for each key-
+value pair. This allows you to work with individual key-value pairs in a more flexible manner.
+*Cross Joining: The explode() function can be used in conjunction with the LATERAL VIEW operator to perform cross joins. By exploding two or more
+columns, you can generate all possible combinations of the exploded elements, creating a Cartesian product of the rows.
+*Data Transformation: explode() is often used as part of a data transformation process. It can be used to split a delimited string into multiple
+rows or extract individual elements from a complex data structure, enabling further processing or analysis.
+*Data Exploration: When exploring data in Hive, explode() can help to examine the individual elements of an array or map column. It allows you to 
+extract and analyze specific values, perform aggregations, or filter based on the exploded elements.
+*Data Cleaning and Validation: explode() can be utilized to identify and handle missing or incorrect values in array or map columns. By exploding 
+the column, you can identify problematic elements and apply data cleaning or validation rules to ensure data quality.
 
 Q-65- What is the available mechanism for connecting applications when we run Hive as a server?
 A-65-
