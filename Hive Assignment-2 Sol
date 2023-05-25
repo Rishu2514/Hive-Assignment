@@ -164,6 +164,73 @@ Q-11-hive operation with python
 Create a python application that connects to the Hive database for extracting data, creating sub tables for data processing, drops 
 temporary tables.fetch rows to python itself into a list of tuples and mimic the join or filter operations
 
+A-11-
+import pyhive
+from pyhive import hive
+
+# Connect to Hive
+conn = hive.Connection(host='localhost', port=10000, username='your_username')
+cursor = conn.cursor()
+
+# Execute Hive queries
+cursor.execute('USE your_database')
+
+# Extract data
+cursor.execute('SELECT * FROM your_table')
+data = cursor.fetchall()
+
+# Close the connection
+cursor.close()
+conn.close()
+
+# Process data
+# ...
+
+# Create sub-tables
+# ...
+
+# Drop temporary tables
+# ...
+
+# Fetch rows into a list of tuples
+result = []
+for row in data:
+    result.append(tuple(row))
+
+# Perform join or filter operations
+# ...
+
+# Example join operation
+# Assuming two tables: table1 and table2 with a common column 'id'
+join_query = '''
+SELECT *
+FROM table1
+JOIN table2
+  ON table1.id = table2.id
+'''
+cursor = conn.cursor()
+cursor.execute(join_query)
+join_result = cursor.fetchall()
+
+# Close the connection
+cursor.close()
+conn.close()
+
+# Example filter operation
+# Assuming a table named 'data' with a column 'value' to filter on
+filter_query = '''
+SELECT *
+FROM data
+WHERE value > 10
+'''
+cursor = conn.cursor()
+cursor.execute(filter_query)
+filter_result = cursor.fetchall()
+
+# Close the connection
+cursor.close()
+conn.close()
+
 
 
 
