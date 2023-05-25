@@ -211,6 +211,31 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/00360/
 17 . union operation you have to perform . 
 18 . table view operation you have to perform . 
 A-10-
+create table AirQualityUCI
+(
+date string,
+time string,
+co string,
+pt string,
+nmhc int,
+c6h6 string,
+pt08_s2 int,
+nox int,
+pt08_s3 int,
+no2 int,
+pt08_s4 int,
+pt08_s5 int,
+t string,
+rh string,
+ah string,
+blanck_col string
+)
+row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
+with serdeproperties ( 
+"separatorChar" = "\073" 
+)
+stored as textfile
+tblproperties ("skip.header.line.count" = "1"); 
 
 
 
