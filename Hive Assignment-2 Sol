@@ -229,9 +229,15 @@ t float,
 rh float,
 ah float
 )
-row format delimited
-fields terminated by ','
-tblproperties ("skip.header.line.count" = "1"); 
+row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+with serdeproperties (
+"separatorChar" = ",",
+"quoteChar" = "\,,",
+"escapeChar" = "\\"
+)
+stored as textfile
+tblproperties ("skip.header.line.count" = "1");
+
 
 
 
